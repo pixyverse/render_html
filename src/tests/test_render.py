@@ -16,7 +16,7 @@ def stdoutIO(stdout=None):
 
 
 class TestRender(unittest.TestCase):
-    def test_RenderMinimal(self):
+    def test_render_minimal(self):
         input = """
 from src.pixieverse.render_html.render import createElement
 comp=<p></p>
@@ -32,7 +32,7 @@ print(comp)
                 self.fail(f"Unable to execute source {ex}")
         self.assertEqual(expected, output.getvalue())
 
-    def test_RenderNested(self):
+    def test_render_nested(self):
         input = """
 from src.pixieverse.render_html.render import createElement
 comp=<p><h1></h1></p>
@@ -48,7 +48,7 @@ print(comp)
                 self.fail(f"Unable to execute source {ex}")
         self.assertEqual(expected, output.getvalue())
 
-    def test_RenderMultipleNested(self):
+    def test_render_multiple_nested(self):
         input = """
 from src.pixieverse.render_html.render import createElement
 comp=<p><h1></h1><h2></h2></p>
@@ -64,13 +64,13 @@ print(comp)
                 self.fail(f"Unable to execute source {ex}")
         self.assertEqual(expected, output.getvalue())
 
-    def test_RenderMultipleNested(self):
+    def test_render_literal_strings(self):
         input = """
 from src.pixieverse.render_html.render import createElement
-comp=<p><h1></h1><h2></h2></p>
+comp=<p>"Hello World"</p>
 print(comp)
 """
-        expected = """<p><h1></h1><h2></h2></p>
+        expected = """<p>Hello World</p>
 """
         source = transpile_source(input)
         with stdoutIO() as output:
@@ -100,7 +100,7 @@ print(comp)
                 self.fail(f"Unable to execute source: {ex}")
         self.assertEqual(expected, output.getvalue())
 
-    def test_RenderComponentChildren(self):
+    def test_render_component_children(self):
         input = """
 from src.pixieverse.render_html.render import createElement
 
@@ -114,6 +114,34 @@ comp=<header_comp></header_comp>
 print(comp)
 """
         expected = """<h1><ul><li></li></ul></h1>
+"""
+        source = transpile_source(input)
+        with stdoutIO() as output:
+            try:
+                exec(source, globals())
+            except Exception as ex:
+                self.fail(f"Unable to execute source: {ex}")
+        self.assertEqual(expected, output.getvalue())
+
+    def test_render_mixed_literal_component_children(self):
+        input = """
+from src.pixieverse.render_html.render import createElement
+
+def menu_comp(tagName, props, children):
+    return <ul><li></li></ul>
+
+def page_comp(tagName, props, children):
+    return (<main>
+    <nav>
+        <menu_comp></menu_comp>
+    </nav>
+    <article>"This is a long and lovely article"
+    </article>
+    </main>)
+comp=<page_comp></page_comp>
+print(comp)
+"""
+        expected = """<main><nav><ul><li></li></ul></nav><article>This is a long and lovely article</article></main>
 """
         source = transpile_source(input)
         with stdoutIO() as output:
