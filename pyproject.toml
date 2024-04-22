@@ -1,12 +1,4 @@
 [project]
-name = "pixieverse.render_html"
-dynamic = ["version"]
-authors = [
-  { name="Pradeep Roark", email="pradeep.roark@gmail.com" },
-]
-description = "A package to parse pixie component files which allow you to author components in python"
-readme = "README.md"
-requires-python = ">= 3.9"
 classifiers = [
   # How mature is this project? Common values are
   #   3 - Alpha
@@ -39,28 +31,42 @@ dependencies = [
 dev = [
   "build",
   "pre-commit",
+  "poetry",
   "black",
   "flake8",
   "mypy"
 ]
 publish = ["twine"]
 
-[build-system]
-requires = ["setuptools>=64", "setuptools_scm>=8"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools_scm]
-version_file = "src/pixieverse/render_html/_version.py"
-
-[tool.setuptools.packages.find]
-where = ["src"]
-exclude = ["tests*"]
 
 [tool.black]
 line-length = 88
 target-version = ['py39','py310','py311','py312']
 
+
 [tool.mypy]
 strict = false
 disallow_untyped_decorators = false
 check_untyped_defs = true
+
+[tool.poetry]
+name = "pixieverse-render-html"
+version = "0.1.0"
+description = "A package to render pixie (.pix) files to HTML"
+authors = ["Pradeep Roark <pradeep.roark@gmail.com>"]
+readme = "README.md"
+packages = [{include = "pixieverse"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pixie = {path = "../pixie"}
+
+[tool.poetry.group.dev.dependencies]
+build = "^1.2.1"
+pre-commit = "^3.7.0"
+black = "^24.3.0"
+flake8 = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
