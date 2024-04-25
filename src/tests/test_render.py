@@ -2,6 +2,7 @@ import contextlib
 from io import StringIO
 import sys
 import unittest
+
 from pixieverse.pixie.transpile import transpile_source
 
 
@@ -80,7 +81,7 @@ print(comp)
                 self.fail(f"Unable to execute source {ex}")
         self.assertEqual(expected, output.getvalue())
 
-    def test_RenderComponent(self):
+    def test_render_component(self):
         input = """
 from src.pixieverse.render_html.render import createElement
 
@@ -149,4 +150,40 @@ print(comp)
                 exec(source, globals())
             except Exception as ex:
                 self.fail(f"Unable to execute source: {ex}")
+        self.assertEqual(expected, output.getvalue())
+
+    def test_render_props(self):
+        input = """
+from src.pixieverse.render_html.render import createElement
+comp=<p title="important info">"Buy 2 for 1"</p>
+print(comp)
+"""
+        expected = """<p title="important info">Buy 2 for 1</p>
+"""
+        source = transpile_source(input)
+        with stdoutIO() as output:
+            try:
+                exec(source, globals())
+            except Exception as ex:
+                self.fail(f"Unable to execute source {ex}")
+        self.assertEqual(expected, output.getvalue())
+
+    """
+    we handle props that are python keywords with snake case names
+    """
+
+    def test_render_unsafe_props(self):
+        input = """
+from src.pixieverse.render_html.render import createElement
+comp=<p class_name="highlight">"Buy 2 for 1"</p>
+print(comp)
+"""
+        expected = """<p class="highlight">Buy 2 for 1</p>
+"""
+        source = transpile_source(input)
+        with stdoutIO() as output:
+            try:
+                exec(source, globals())
+            except Exception as ex:
+                self.fail(f"Unable to execute source {ex}")
         self.assertEqual(expected, output.getvalue())
