@@ -307,13 +307,15 @@ test = ["pytest", "pytest-cov"]
 web = ["flask", "flask-wtf"]
 
 [[package]]
-name = "pixieverse.pixie"
-version = "0.0.3.dev7+g29a7f2c.d20240513"
+name = "pixieverse-pixie"
+version = "0.0.4"
 description = "A package to parse pixie component files which allow you to author components in python"
 optional = false
 python-versions = ">=3.9"
-files = []
-develop = false
+files = [
+    {file = "pixieverse.pixie-0.0.4-py3-none-any.whl", hash = "sha256:c8b476698b44ba435cd64be4d0a85184aed650aeb88332cfde144fd1b6fcbe51"},
+    {file = "pixieverse_pixie-0.0.4.tar.gz", hash = "sha256:f4da83b5a49feb9c3ec96d1a69a540010019050f2aeef924fa5b9e6402358b48"},
+]
 
 [package.dependencies]
 pegen = ">=0.3.0"
@@ -323,8 +325,9 @@ dev = ["black", "build", "flake8", "mypy", "pre-commit"]
 publish = ["twine"]
 
 [package.source]
-type = "directory"
-url = "../pixie"
+type = "legacy"
+url = "https://test.pypi.org/simple"
+reference = "test-pypi"
 
 [[package]]
 name = "platformdirs"
@@ -529,4 +532,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "9b1fd93f3d8ea483b6e9649387924702b9f00e7c81116dee1b9c142104154d35"
+content-hash = "3a32842920bc212fd3272b0d665992bbaa175b0329af94f75cbe4a061ac6beb6"

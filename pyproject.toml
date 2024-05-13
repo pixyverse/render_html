@@ -49,6 +49,11 @@ strict = false
 disallow_untyped_decorators = false
 check_untyped_defs = true
 
+[[tool.poetry.source]]
+name = "test-pypi"
+url = "https://test.pypi.org/simple/"
+priority = "explicit"
+
 [tool.poetry]
 name = "pixieverse.render_html"
 version = "0.1.0"
@@ -59,7 +64,7 @@ packages = [{include = "pixieverse/render_html", from="src/"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pixieverse-pixie = {path = "../pixie"}
+pixieverse-pixie = {version="0.0.4", source="test-pypi"}
 
 [tool.poetry.group.dev.dependencies]
 build = "^1.2.1"
