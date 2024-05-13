@@ -50,12 +50,12 @@ disallow_untyped_decorators = false
 check_untyped_defs = true
 
 [tool.poetry]
-name = "pixieverse-render-html"
+name = "pixieverse.render_html"
 version = "0.1.0"
 description = "A package to render pixie (.pix) files to HTML"
 authors = ["Pradeep Roark <pradeep.roark@gmail.com>"]
 readme = "README.md"
-packages = [{include = "pixieverse"}]
+packages = [{include = "pixieverse", from="src/"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
