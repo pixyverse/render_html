@@ -1,4 +1,4 @@
-from typing import List
+from typing import Iterable, List
 
 safeKeyNames = {"class_name": "class"}
 
@@ -9,6 +9,20 @@ def map_prop_name(name: str):
     return name
 
 
-def createElement(elem: str, props: dict[str, str] = {}, children: List[str] = []):
-    render_children = "".join(children)
+id = lambda x: x
+
+
+def flat_map(f, xs: Iterable):
+    ys: List = []
+    for x in xs:
+        ys.extend(f(x))
+    return ys
+
+
+def createElement(
+    elem: str,
+    props: dict[str, str] = {},
+    children: Iterable[str] | Iterable[Iterable[str]] = [],
+):
+    render_children = "".join(flat_map(id, children))
     return f"""<{elem}{''.join(f' {map_prop_name(key)}={value}' for key, value in props.items())}>{render_children}</{elem}>"""

@@ -187,3 +187,19 @@ print(comp)
             except Exception as ex:
                 self.fail(f"Unable to execute source {ex}")
         self.assertEqual(expected, output.getvalue())
+
+    def test_render_list_expressions(self):
+        input = """
+from src.pixieverse.render_html.render import createElement
+comp=<p>{[<li>{fruit}</li> for fruit in ['apple','mango','pear']]}</p>
+print(comp)
+"""
+        expected = """<p><li>apple</li><li>mango</li><li>pear</li></p>
+"""
+        source = transpile_source(input)
+        with stdoutIO() as output:
+            try:
+                exec(source, globals())
+            except Exception as ex:
+                self.fail(f"Unable to execute source {ex}")
+        self.assertEqual(expected, output.getvalue())
