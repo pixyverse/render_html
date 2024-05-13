@@ -55,17 +55,18 @@ version = "0.1.0"
 description = "A package to render pixie (.pix) files to HTML"
 authors = ["Pradeep Roark <pradeep.roark@gmail.com>"]
 readme = "README.md"
-packages = [{include = "pixieverse", from="src/"}]
+packages = [{include = "pixieverse/render_html", from="src/"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pixie = {path = "../pixie"}
+pixieverse-pixie = {path = "../pixie"}
 
 [tool.poetry.group.dev.dependencies]
 build = "^1.2.1"
 pre-commit = "^3.7.0"
 black = "^24.3.0"
 flake8 = "^7.0.0"
+mypy = "^1.10.0"
 
 [build-system]
 requires = ["poetry-core"]
