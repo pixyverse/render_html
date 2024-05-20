@@ -64,7 +64,7 @@ packages = [{include = "pixyverse/render_html", from="src/"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pixyverse-pixy = {git = "https://github.com/pixyverse/pixy", rev = "rel-0.0.6"}
+pixyverse-pixy = "^0.0.6"
 
 [tool.poetry.group.dev.dependencies]
 build = "^1.2.1"
