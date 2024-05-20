@@ -17,7 +17,6 @@ classifiers = [
 
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -41,7 +40,7 @@ publish = ["twine"]
 
 [tool.black]
 line-length = 88
-target-version = ['py39','py310','py311','py312']
+target-version = ['py310','py311','py312']
 
 
 [tool.mypy]
@@ -55,16 +54,16 @@ url = "https://test.pypi.org/simple/"
 priority = "explicit"
 
 [tool.poetry]
-name = "pixieverse.render_html"
+name = "pixyverse.render_html"
 version = "0.1.0"
-description = "A package to render pixie (.pix) files to HTML"
+description = "A package to render pixy (.pix) files to HTML"
 authors = ["Pradeep Roark <pradeep.roark@gmail.com>"]
 readme = "README.md"
-packages = [{include = "pixieverse/render_html", from="src/"}]
+packages = [{include = "pixyverse/render_html", from="src/"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-pixieverse-pixie = {version="0.0.4", source="test-pypi"}
+python = "^3.10"
+pixyverse-pixy = {git = "https://github.com/pixyverse/pixy", rev = "rel-0.0.6"}
 
 [tool.poetry.group.dev.dependencies]
 build = "^1.2.1"

@@ -3,7 +3,7 @@ from io import StringIO
 import sys
 import unittest
 
-from pixieverse.pixie.transpile import transpile_source
+from pixyverse.pixy.transpile import transpile_source
 
 
 @contextlib.contextmanager
@@ -19,7 +19,7 @@ def stdoutIO(stdout=None):
 class TestRender(unittest.TestCase):
     def test_render_minimal(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 comp=<p></p>
 print(comp)
 """
@@ -35,7 +35,7 @@ print(comp)
 
     def test_render_nested(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 comp=<p><h1></h1></p>
 print(comp)
 """
@@ -51,7 +51,7 @@ print(comp)
 
     def test_render_multiple_nested(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 comp=<p><h1></h1><h2></h2></p>
 print(comp)
 """
@@ -67,7 +67,7 @@ print(comp)
 
     def test_render_literal_strings(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 comp=<p>"Hello World"</p>
 print(comp)
 """
@@ -83,7 +83,7 @@ print(comp)
 
     def test_render_component(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 
 def header_comp(tagName, props, children):
     return (<p><h1></h1><h2></h2></p>)
@@ -103,7 +103,7 @@ print(comp)
 
     def test_render_component_children(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 
 def menu_comp(tagName, props, children):
     return <ul><li></li></ul>
@@ -126,7 +126,7 @@ print(comp)
 
     def test_render_mixed_literal_component_children(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 
 def menu_comp(tagName, props, children):
     return <ul><li></li></ul>
@@ -154,7 +154,7 @@ print(comp)
 
     def test_render_props(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 comp=<p title="important info">"Buy 2 for 1"</p>
 print(comp)
 """
@@ -174,7 +174,7 @@ print(comp)
 
     def test_render_unsafe_props(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 comp=<p class_name="highlight">"Buy 2 for 1"</p>
 print(comp)
 """
@@ -190,11 +190,43 @@ print(comp)
 
     def test_render_list_expressions(self):
         input = """
-from src.pixieverse.render_html.render import createElement
+from src.pixyverse.render_html.render import createElement
 comp=<p>{[<li>{fruit}</li> for fruit in ['apple','mango','pear']]}</p>
 print(comp)
 """
         expected = """<p><li>apple</li><li>mango</li><li>pear</li></p>
+"""
+        source = transpile_source(input)
+        with stdoutIO() as output:
+            try:
+                exec(source, globals())
+            except Exception as ex:
+                self.fail(f"Unable to execute source {ex}")
+        self.assertEqual(expected, output.getvalue())
+
+    def test_render_unsafe_props(self):
+        input = """
+from src.pixyverse.render_html.render import createElement
+comp=<p class_name="highlight">"Buy 2 for 1"</p>
+print(comp)
+"""
+        expected = """<p class="highlight">Buy 2 for 1</p>
+"""
+        source = transpile_source(input)
+        with stdoutIO() as output:
+            try:
+                exec(source, globals())
+            except Exception as ex:
+                self.fail(f"Unable to execute source {ex}")
+        self.assertEqual(expected, output.getvalue())
+
+    def test_render_props_underscores(self):
+        input = """
+from src.pixyverse.render_html.render import createElement
+comp=<p class_name="highlight" data_touch="multi">"Buy 2 for 1"</p>
+print(comp)
+"""
+        expected = """<p class="highlight" data-touch="multi">Buy 2 for 1</p>
 """
         source = transpile_source(input)
         with stdoutIO() as output:

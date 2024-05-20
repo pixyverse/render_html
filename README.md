@@ -4,7 +4,7 @@ Render-HTML
 What is Render-HTML
 --------------------
 
-Render-HTML is a sister project for pixie that implements the createElement API to render content to HTML
+Render-HTML is a sister project for pixy that implements the createElement API to render content to HTML
 
 Development Status
 --------------------
