@@ -13,7 +13,7 @@ classifiers = [
   "Topic :: Software Development :: Code Generators",
   "Topic :: Software Development :: Libraries",
 
-  "License :: Other/Proprietary License",
+  "License :: OSI Approved :: Apache Software License",
 
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
@@ -21,6 +21,7 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
 ]
+license = {file = "LICENSE"}
 keywords = ["templating","web","parser","jsx","html"]
 dependencies = [
   
