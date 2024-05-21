@@ -206,7 +206,29 @@ print(comp)
         expected = """<p><li>apple</li><li>mango</li><li>pear</li></p>
 """
         source = transpile_source(input)
-        assert source
+        with stdoutIO() as output:
+            try:
+                exec(source, globals())
+            except Exception as ex:
+                self.fail(f"Unable to execute source {ex}")
+        self.assertEqual(expected, output.getvalue())
+
+    def test_render_unsafe_props(self):
+        input = """
+from src.pixyverse.render_html.render import create_element
+
+comp=(<div>
+        <label for_="milk-amount" None_="boom" case="confirmed">"Enter litres"</label>
+        <input name="milk-amount" class_="moo" test__="abc" type="text"/>
+      </div>)
+print(comp)
+"""
+        expected = """<div>\
+<label for="milk-amount" none="boom" case="confirmed">Enter litres</label>\
+<input name="milk-amount" class="moo" test--="abc" type="text"></input>\
+</div>
+"""
+        source = transpile_source(input)
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -217,7 +239,7 @@ print(comp)
     def test_render_props_underscores(self):
         input = """
 from src.pixyverse.render_html.render import create_element
-comp=<p class_name="highlight" data_touch="multi">"Buy 2 for 1"</p>
+comp=<p class_="highlight" data_touch="multi">"Buy 2 for 1"</p>
 print(comp)
 """
         expected = """<p class="highlight" data-touch="multi">Buy 2 for 1</p>

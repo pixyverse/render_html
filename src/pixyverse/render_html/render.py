@@ -1,11 +1,13 @@
 from typing import Iterable, List
-
-safeKeyNames = {"class_name": "class"}
+import keyword
 
 
 def map_prop_name(name: str):
-    if name in safeKeyNames.keys():
-        return safeKeyNames[name]
+    if name:
+        lower_name = name.lower()
+        prefix, suffix = (lower_name[:-1], lower_name[-1:])
+        if suffix == "_" and prefix in [kw.lower() for kw in keyword.kwlist]:
+            return prefix
     return name
 
 
