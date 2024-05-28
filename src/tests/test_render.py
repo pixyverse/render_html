@@ -26,6 +26,7 @@ print(comp)
         expected = """<p></p>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -42,6 +43,7 @@ print(comp)
         expected = """<p><h1></h1></p>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -58,6 +60,7 @@ print(comp)
         expected = """<p><h1></h1><h2></h2></p>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -74,6 +77,7 @@ print(comp)
         expected = """<p>Hello World</p>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -94,6 +98,7 @@ print(comp)
         expected = """<p><h1></h1><h2></h2></p>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -117,6 +122,7 @@ print(comp)
         expected = """<h1><ul><li></li></ul></h1>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -145,6 +151,7 @@ print(comp)
         expected = """<main><nav><ul><li></li></ul></nav><article>This is a long and lovely article</article></main>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -161,6 +168,7 @@ print(comp)
         expected = """<p title="important info">Buy 2 for 1</p>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -181,6 +189,7 @@ print(comp)
         expected = """<p class="highlight">Buy 2 for 1</p>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -197,22 +206,7 @@ print(comp)
         expected = """<p><li>apple</li><li>mango</li><li>pear</li></p>
 """
         source = transpile_source(input)
-        with stdoutIO() as output:
-            try:
-                exec(source, globals())
-            except Exception as ex:
-                self.fail(f"Unable to execute source {ex}")
-        self.assertEqual(expected, output.getvalue())
-
-    def test_render_unsafe_props(self):
-        input = """
-from src.pixyverse.render_html.render import create_element
-comp=<p class_name="highlight">"Buy 2 for 1"</p>
-print(comp)
-"""
-        expected = """<p class="highlight">Buy 2 for 1</p>
-"""
-        source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -229,6 +223,7 @@ print(comp)
         expected = """<p class="highlight" data-touch="multi">Buy 2 for 1</p>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())

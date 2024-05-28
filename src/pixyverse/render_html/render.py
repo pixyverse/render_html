@@ -9,7 +9,8 @@ def map_prop_name(name: str):
     return name
 
 
-id = lambda x: x
+def id(x):
+    return x
 
 
 def flat_map(f, xs: Iterable):
@@ -29,4 +30,6 @@ def create_element(
     children: Iterable[str] | Iterable[Iterable[str]] = [],
 ):
     render_children = "".join(flat_map(id, children))
-    return f"""<{elem}{''.join(f' {underscoreToHyphen(map_prop_name(key))}={value}' for key, value in props.items())}>{render_children}</{elem}>"""
+    return f"<{elem}\
+{''.join(f' {underscoreToHyphen(map_prop_name(key))}={value}' for key, value in props.items())}>\
+{render_children}</{elem}>"

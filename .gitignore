@@ -8,3 +8,4 @@ dist
 _version.py
 .vscode
 .TODOS
+**/*.stamp
