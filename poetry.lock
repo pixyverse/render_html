@@ -303,42 +303,6 @@ files = [
 ]
 
 [[package]]
-name = "pegen"
-version = "0.3.0"
-description = "CPython's PEG parser generator"
-optional = false
-python-versions = "<4,>=3.8"
-files = [
-    {file = "pegen-0.3.0-py3-none-any.whl", hash = "sha256:69253c196ea425828a6ca01cec1aadca415cd5c789b4d00d653962234497071a"},
-    {file = "pegen-0.3.0.tar.gz", hash = "sha256:8cb30cee508a95c573aa256ed2cfa80ef8f561b90264c70e7de5afc50b4ac87d"},
-]
-
-[package.extras]
-docs = ["furo", "sphinx", "sphinx-copybutton"]
-lint = ["black", "flake8", "mypy"]
-memory = ["psutil"]
-test = ["pytest", "pytest-cov"]
-web = ["flask", "flask-wtf"]
-
-[[package]]
-name = "pixyverse-pixy"
-version = "0.0.8"
-description = "A package to parse pixy component files which allow you to author components in python"
-optional = false
-python-versions = ">=3.10"
-files = [
-    {file = "pixyverse.pixy-0.0.8-py3-none-any.whl", hash = "sha256:b5b1c5aaf3fc42e2f37a634bcfb003442e6e677185f9fdea7163ed1c04b8a0e3"},
-    {file = "pixyverse_pixy-0.0.8.tar.gz", hash = "sha256:83b8380855d347b32414a78ad92c8838832d664baf7fa5bfbea7fe47b169a6fa"},
-]
-
-[package.dependencies]
-pegen = ">=0.3.0"
-
-[package.extras]
-dev = ["black", "build", "flake8", "mypy", "pre-commit", "types-setuptools"]
-publish = ["twine"]
-
-[[package]]
 name = "platformdirs"
 version = "4.2.2"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
@@ -540,4 +504,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "25596dcdaded199276927089b1b2032a9c3fffc89390ffb162aaab23c9f029c6"
+content-hash = "9d9d181e6107b70641ed3a35c7db352c9aabc52a851ca3e9e42857f2b8deb6bf"

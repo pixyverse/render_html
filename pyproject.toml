@@ -24,7 +24,7 @@ classifiers = [
 license = {file = "LICENSE"}
 keywords = ["templating","web","parser","jsx","html"]
 dependencies = [
-
+"pixyverse-pixy == ^0.0.8"
 ]
 
 [project.optional-dependencies]
@@ -65,7 +65,7 @@ packages = [{include = "pixyverse/render_html", from="src/"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pixyverse-pixy = "^0.0.8"
+
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.13.2"
