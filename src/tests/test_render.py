@@ -176,27 +176,6 @@ print(comp)
                 self.fail(f"Unable to execute source {ex}")
         self.assertEqual(expected, output.getvalue())
 
-    """
-    we handle props that are python keywords with snake case names
-    """
-
-    def test_render_unsafe_props(self):
-        input = """
-from src.pixyverse.render_html.render import create_element
-comp=<p class_name="highlight">"Buy 2 for 1"</p>
-print(comp)
-"""
-        expected = """<p class="highlight">Buy 2 for 1</p>
-"""
-        source = transpile_source(input)
-        assert source
-        with stdoutIO() as output:
-            try:
-                exec(source, globals())
-            except Exception as ex:
-                self.fail(f"Unable to execute source {ex}")
-        self.assertEqual(expected, output.getvalue())
-
     def test_render_list_expressions(self):
         input = """
 from src.pixyverse.render_html.render import create_element
@@ -212,6 +191,10 @@ print(comp)
             except Exception as ex:
                 self.fail(f"Unable to execute source {ex}")
         self.assertEqual(expected, output.getvalue())
+
+    """
+    we handle props that are python keywords with snake case names
+    """
 
     def test_render_unsafe_props(self):
         input = """
