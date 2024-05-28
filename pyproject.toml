@@ -57,7 +57,7 @@ priority = "explicit"
 
 [tool.poetry]
 name = "pixyverse.render_html"
-version = "0.1.0"
+version = "0.0.0"
 description = "A package to render pixy (.pix) files to HTML"
 authors = ["Pradeep Roark <pradeep.roark@gmail.com>"]
 readme = "README.md"
@@ -75,6 +75,10 @@ black = "^24.3.0"
 flake8 = "^7.0.0"
 mypy = "^1.10.0"
 
+
+[tool.poetry-dynamic-versioning]
+enable = true
+pattern = "rel-(?P<base>\\d.\\d.\\d)"
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"

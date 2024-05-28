@@ -4,7 +4,7 @@ POETRY := $(shell command -v poetry 2> /dev/null)
 all: venv lint pie test
 
 build: $(INSTALL_STAMP)
-	$(POETRY) run python -m build
+	$(POETRY) build
 
 
 install: $(INSTALL_STAMP)
