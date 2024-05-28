@@ -34,7 +34,8 @@ dev = [
   "poetry",
   "black",
   "flake8",
-  "mypy"
+  "mypy",
+  "isort"
 ]
 publish = ["twine"]
 

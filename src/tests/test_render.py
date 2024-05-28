@@ -1,7 +1,7 @@
 import contextlib
-from io import StringIO
 import sys
 import unittest
+from io import StringIO
 
 from pixyverse.pixy.transpile import transpile_source
 
