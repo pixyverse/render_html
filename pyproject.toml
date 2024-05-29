@@ -67,7 +67,6 @@ packages = [{include = "pixyverse/render_html", from="src/"}]
 python = "^3.10"
 pixyverse-pixy = "^0.0.8"
 
-
 [tool.poetry.group.dev.dependencies]
 isort = "^5.13.2"
 build = "^1.2.1"
@@ -75,6 +74,9 @@ pre-commit = "^3.7.0"
 black = "^24.3.0"
 flake8 = "^7.0.0"
 mypy = "^1.10.0"
+unittest-xml-reporting = "^3.2.0"
+coverage = "^7.5.3"
+genbadge = {extras = ["all"], version = "^1.1.1"}
 
 
 [tool.poetry-dynamic-versioning]
@@ -83,3 +85,8 @@ pattern = "rel-(?P<base>\\d.\\d.\\d)"
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
 build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.coverage.run]
+source = [
+      "src/pixyverse"
+    ]

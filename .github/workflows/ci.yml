@@ -32,4 +32,4 @@ jobs:
         make pie
     - name: Test with unittest
       run: |
-        cd src && python -m unittest
+        make test
