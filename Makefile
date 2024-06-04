@@ -1,21 +1,32 @@
 INSTALL_STAMP := .install.stamp
-POETRY := $(shell command -v poetry 2> /dev/null)
+POETRY_STAMP := .poetry.stamp
+POETRY = $(shell command -v poetry 2> /dev/null)
+
+.ONESHELL:
 
 all: venv lint pie test
 
 build: $(INSTALL_STAMP)
 	$(POETRY) build
 
+poetrysetup: $(POETRY_STAMP)
+$(POETRY_STAMP):
+	pipx install poetry
+	poetry -V
+	which poetry
+	touch $(POETRY_STAMP)
 
-install: $(INSTALL_STAMP)
+deps: $(INSTALL_STAMP) poetrysetup
 $(INSTALL_STAMP): pyproject.toml poetry.lock
-	$(POETRY) install
+	$(POETRY) install --with dev --sync
 	touch $(INSTALL_STAMP)
 
 .PHONY: lint
 lint:
 	# stop the build if there are Python syntax errors or undefined names
-	$(POETRY) run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+	mkdir -p ./reports/flake8
+	$(POETRY) run flake8 . --count --select=E9,F63,F7,F82 --show-source --exit-zero --format=html --htmldir ./reports/flake8 --statistics --tee --output-file reports/flake8/flake8stats.txt
+	$(POETRY) run genbadge flake8
 	# exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
 	$(POETRY) run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
@@ -26,7 +37,12 @@ pie: $(INSTALL_STAMP)
 
 .PHONY: test
 test: $(INSTALL_STAMP)
-	$(POETRY) run python -m src.tests
+	$(POETRY) run coverage run -m src.tests
+	$(POETRY) run coverage report
+	$(POETRY) run coverage xml
+	$(POETRY) run coverage html
+	$(POETRY) run genbadge tests -i $(shell find junit -name '*.xml')
+	$(POETRY) run genbadge coverage -i coverage.xml
 
 .PHONY: clean
 clean:

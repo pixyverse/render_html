@@ -7,6 +7,7 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -25,11 +26,11 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        make install
+        make poetrysetup deps
     - name: Lint with flake8
       run: |
         make lint
         make pie
     - name: Test with unittest
       run: |
-        cd src && python -m unittest
+        make test

@@ -1,5 +1,7 @@
 import unittest
 
+import xmlrunner
+
 # import your test modules
 import tests.test_render
 
@@ -12,5 +14,5 @@ suite.addTests(loader.loadTestsFromModule(tests.test_render))
 
 
 # initialize a runner, pass it your suite and run it
-runner = unittest.TextTestRunner(verbosity=3)
+runner = xmlrunner.XMLTestRunner(verbosity=3, output="./junit", outsuffix="junit")
 result = runner.run(suite)
