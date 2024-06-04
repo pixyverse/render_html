@@ -11,6 +11,8 @@ build: $(INSTALL_STAMP)
 .PHONY: poetrysetup
 poetrysetup:
 	pipx install poetry
+	poetry -V
+	which poetry
 
 deps: $(INSTALL_STAMP) poetrysetup
 $(INSTALL_STAMP): pyproject.toml poetry.lock
