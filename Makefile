@@ -14,7 +14,7 @@ poetrysetup:
 
 deps: $(INSTALL_STAMP) poetrysetup
 $(INSTALL_STAMP): pyproject.toml poetry.lock
-	$(POETRY) install
+	$(POETRY) install --with dev --sync
 	touch $(INSTALL_STAMP)
 
 .PHONY: lint
