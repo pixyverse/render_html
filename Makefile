@@ -10,7 +10,7 @@ build: $(INSTALL_STAMP)
 deps: $(INSTALL_STAMP)
 $(INSTALL_STAMP): pyproject.toml poetry.lock
 	pipx install poetry
-	$(POETRY) install --with dev
+	$(POETRY) install
 	touch $(INSTALL_STAMP)
 
 .PHONY: lint
