@@ -1,6 +1,8 @@
 INSTALL_STAMP := .install.stamp
 POETRY = $(shell which poetry)
 
+.ONESHELL:
+
 all: venv lint pie test
 
 build: $(INSTALL_STAMP)
