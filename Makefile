@@ -1,15 +1,17 @@
 INSTALL_STAMP := .install.stamp
-POETRY = $(shell command -v poetry 2> /dev/null)
+POETRY = $(shell which poetry)
 
 all: venv lint pie test
 
 build: $(INSTALL_STAMP)
 	$(POETRY) build
 
-
-deps: $(INSTALL_STAMP)
-$(INSTALL_STAMP): pyproject.toml poetry.lock
+.PHONY: poetrysetup
+poetrysetup:
 	pipx install poetry
+
+deps: $(INSTALL_STAMP) poetrysetup
+$(INSTALL_STAMP): pyproject.toml poetry.lock
 	$(POETRY) install
 	touch $(INSTALL_STAMP)
 
