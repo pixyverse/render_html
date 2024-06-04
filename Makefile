@@ -1,5 +1,5 @@
 INSTALL_STAMP := .install.stamp
-POETRY := $(shell command -v poetry 2> /dev/null)
+POETRY = $(shell command -v poetry 2> /dev/null)
 
 all: venv lint pie test
 
