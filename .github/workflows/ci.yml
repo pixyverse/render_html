@@ -9,6 +9,11 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
 
@@ -34,3 +39,27 @@ jobs:
     - name: Test with unittest
       run: |
         make test
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v4
+      with:
+        name: code-coverage-report-${{ matrix.python-version }}
+        path: reports/
+    - name: Archive unit test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: unit-test-report-${{ matrix.python-version }}
+        path: htmlcov/
+    - name: Compress badges
+      uses: a7ul/tar-action@v1.1.0
+      with:
+        outPath: badges-${{ matrix.python-version }}.tar.gz
+        files: |
+          coverage-badge.svg
+          flake8-badge.svg
+          tests-badge.svg
+    - name: Upload artifact
+      id: upload-pages-artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: badges-${{ matrix.python-version }}
+        path: badges-${{ matrix.python-version }}.tar.gz
