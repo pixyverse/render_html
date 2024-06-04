@@ -7,7 +7,7 @@ build: $(INSTALL_STAMP)
 	$(POETRY) build
 
 
-install: $(INSTALL_STAMP)
+deps: $(INSTALL_STAMP)
 $(INSTALL_STAMP): pyproject.toml poetry.lock
 	$(POETRY) install
 	touch $(INSTALL_STAMP)
