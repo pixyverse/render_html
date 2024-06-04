@@ -1,4 +1,5 @@
 INSTALL_STAMP := .install.stamp
+POETRY_STAMP := .poetry.stamp
 POETRY = $(shell which poetry)
 
 .ONESHELL:
@@ -13,8 +14,9 @@ poetrysetup:
 	pipx install poetry
 	poetry -V
 	which poetry
+	touch $(POETRY_STAMP)
 
-deps: $(INSTALL_STAMP) poetrysetup
+deps: $(INSTALL_STAMP) $(POETRY_STAMP)
 $(INSTALL_STAMP): pyproject.toml poetry.lock
 	$(POETRY) install --with dev --sync
 	touch $(INSTALL_STAMP)
