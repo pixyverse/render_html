@@ -185,6 +185,7 @@ print(comp)
         expected = """<p><li>apple</li><li>mango</li><li>pear</li></p>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
@@ -212,6 +213,7 @@ print(comp)
 </div>
 """
         source = transpile_source(input)
+        assert source
         with stdoutIO() as output:
             try:
                 exec(source, globals())
