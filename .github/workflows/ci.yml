@@ -52,6 +52,7 @@ jobs:
     - name: Compress badges
       uses: a7ul/tar-action@v1.1.0
       with:
+        cwd: ${{ github.workspace }}
         command: c
         outPath: badges-${{ matrix.python-version }}.tar.gz
         files: |
