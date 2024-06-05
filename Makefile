@@ -41,14 +41,15 @@ pie: $(INSTALL_STAMP)
 
 .PHONY: test
 test: $(INSTALL_STAMP)
-	mkdir -p junit
+	mkdir -p reports/junit
 	$(POETRY) run coverage run -m src.tests
 	$(POETRY) run coverage report
 	$(POETRY) run coverage xml
+	mv reports/junit/TEST-tests.test_render.TestRender.xml reports/junit/junit.xml
 	$(POETRY) run coverage html
-	echo "finding nemo"
-	find ./junit -type f -name '*.xml'
-	$(POETRY) run genbadge tests -i $(JUNIT_OUT)
+
+
+	$(POETRY) run genbadge tests
 	$(POETRY) run genbadge coverage -i coverage.xml
 
 .PHONY: clean
