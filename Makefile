@@ -46,7 +46,8 @@ test: $(INSTALL_STAMP)
 	$(POETRY) run coverage report
 	$(POETRY) run coverage xml
 	$(POETRY) run coverage html
-	ls -l junit
+	echo "finding nemo"
+	find ./junit -type f -name '*.xml'
 	$(POETRY) run genbadge tests -i $(JUNIT_OUT)
 	$(POETRY) run genbadge coverage -i coverage.xml
 
