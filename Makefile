@@ -5,7 +5,7 @@ SHELL := bash
 INSTALL_STAMP := .install.stamp
 POETRY_STAMP := .poetry.stamp
 POETRY = $(shell command -v poetry 2> /dev/null)
-
+JUNIT_OUT = $(shell find ./junit -type f -name '*.xml')
 
 
 all: venv lint pie test
@@ -47,7 +47,7 @@ test: $(INSTALL_STAMP)
 	$(POETRY) run coverage xml
 	$(POETRY) run coverage html
 	ls -l junit
-	$(POETRY) run genbadge tests -i $(shell find ./junit -type f -name '*.xml')
+	$(POETRY) run genbadge tests -i $(JUNIT_OUT)
 	$(POETRY) run genbadge coverage -i coverage.xml
 
 .PHONY: clean
