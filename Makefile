@@ -57,7 +57,7 @@ test: $(INSTALL_STAMP)
 pages: $(GITHUB_PAGE)
 
 $(GITHUB_PAGE): README.md deps
-	$(POETRY) run python -m markdown README.md
+	$(POETRY) run python -m markdown README.md > index.html
 
 .PHONY: clean
 clean:
