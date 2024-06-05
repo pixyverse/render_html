@@ -37,10 +37,12 @@ pie: $(INSTALL_STAMP)
 
 .PHONY: test
 test: $(INSTALL_STAMP)
+	mkdir -p junit
 	$(POETRY) run coverage run -m src.tests
 	$(POETRY) run coverage report
 	$(POETRY) run coverage xml
 	$(POETRY) run coverage html
+	ls -l junit
 	$(POETRY) run genbadge tests -i $(shell find junit -name '*.xml')
 	$(POETRY) run genbadge coverage -i coverage.xml
 
