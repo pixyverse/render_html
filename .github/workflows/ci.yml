@@ -57,7 +57,7 @@ jobs:
       id: upload-pages-artifact
       uses: actions/upload-artifact@v4
       with:
-        name: badges-${{ matrix.python-version }}
+        name: github-pages
         path: badges-${{ matrix.python-version }}.tar.gz
     - name: Deploy to GitHub Pages
       id: deployment
