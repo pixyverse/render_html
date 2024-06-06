@@ -1,7 +1,6 @@
 Render-HTML
 --------------
-![Tests-3.10](https://pixyverse.github.io/render_html/badges-3.10/tests-badge.svg)
-![Tests-3.11](https://pixyverse.github.io/render_html/badges-3.11/tests-badge.svg)
+[![Build](https://github.com/pixyverse/render_html/actions/workflows/ci.yml/badge.svg)](https://github.com/pixyverse/pixy/actions/workflows/ci.yml)
 ![Tests-3.12](https://pixyverse.github.io/render_html/badges-3.12/tests-badge.svg)
 ![Coverage](https://pixyverse.github.io/render_html/badges-3.12/coverage-badge.svg)
 ![Flake8](https://pixyverse.github.io/render_html/badges-3.12/flake8-badge.svg)
