@@ -86,7 +86,7 @@ jobs:
       id: extract
       with:
         command: x
-        cwd: ./_site
+        cwd: ./_site/badges-3.10
         files: badges-3.10.tar.gz
     - name: Upload artifact
       id: upload-pages-artifact
