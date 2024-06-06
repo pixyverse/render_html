@@ -94,21 +94,18 @@ jobs:
         cp index.html _site
     - name: Extract files
       uses: a7ul/tar-action@v1.1.0
-      id: extract
       with:
         command: x
         cwd: ./_site/badges-3.10
         files: badges-3.10.tar.gz
     - name: Extract files
       uses: a7ul/tar-action@v1.1.0
-      id: extract
       with:
         command: x
         cwd: ./_site/badges-3.11
         files: badges-3.11.tar.gz
     - name: Extract files
       uses: a7ul/tar-action@v1.1.0
-      id: extract
       with:
         command: x
         cwd: ./_site/badges-3.12
