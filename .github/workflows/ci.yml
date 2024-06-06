@@ -76,10 +76,21 @@ jobs:
     - name: download artifacts
       uses: actions/download-artifact@v4
       with:
+        name: badges-3.11
+    - name: download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: badges-3.12
+    - name: download artifacts
+      uses: actions/download-artifact@v4
+      with:
         name: index
     - name: prepare publish folder
       run: |
         mkdir -p _site
+        mkdir -p _site/badges-3.10
+        mkdir -p _site/badges-3.11
+        mkdir -p _site/badges-3.12
         cp index.html _site
     - name: Extract files
       uses: a7ul/tar-action@v1.1.0
@@ -88,6 +99,20 @@ jobs:
         command: x
         cwd: ./_site/badges-3.10
         files: badges-3.10.tar.gz
+    - name: Extract files
+      uses: a7ul/tar-action@v1.1.0
+      id: extract
+      with:
+        command: x
+        cwd: ./_site/badges-3.11
+        files: badges-3.11.tar.gz
+    - name: Extract files
+      uses: a7ul/tar-action@v1.1.0
+      id: extract
+      with:
+        command: x
+        cwd: ./_site/badges-3.12
+        files: badges-3.12.tar.gz
     - name: Upload artifact
       id: upload-pages-artifact
       uses: actions/upload-pages-artifact@v3.0.1
