@@ -66,6 +66,7 @@ jobs:
 
   deploy:
     needs: build
+    environment: github-pages
     runs-on: ubuntu-latest
     steps:
     - name: download artifacts
