@@ -1,8 +1,13 @@
+SHELL := bash
+.SHELLFLAGS := -eu -o pipefail -c
+.ONESHELL:
+
 INSTALL_STAMP := .install.stamp
 POETRY_STAMP := .poetry.stamp
 POETRY = $(shell command -v poetry 2> /dev/null)
+JUNIT_OUT = $(shell find ./junit -type f -name '*.xml')
+GITHUB_PAGE := index.html
 
-.ONESHELL:
 
 all: venv lint pie test
 
@@ -37,12 +42,22 @@ pie: $(INSTALL_STAMP)
 
 .PHONY: test
 test: $(INSTALL_STAMP)
+	mkdir -p reports/junit
 	$(POETRY) run coverage run -m src.tests
 	$(POETRY) run coverage report
 	$(POETRY) run coverage xml
+	mv reports/junit/TEST-tests.test_render.TestRender.xml reports/junit/junit.xml
 	$(POETRY) run coverage html
-	$(POETRY) run genbadge tests -i $(shell find junit -name '*.xml')
+
+
+	$(POETRY) run genbadge tests
 	$(POETRY) run genbadge coverage -i coverage.xml
+
+.PHONY: pages
+pages: $(GITHUB_PAGE)
+
+$(GITHUB_PAGE): README.md deps
+	$(POETRY) run python -m markdown README.md > index.html
 
 .PHONY: clean
 clean:

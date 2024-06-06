@@ -14,5 +14,5 @@ suite.addTests(loader.loadTestsFromModule(tests.test_render))
 
 
 # initialize a runner, pass it your suite and run it
-runner = xmlrunner.XMLTestRunner(verbosity=3, output="./junit", outsuffix="junit")
+runner = xmlrunner.XMLTestRunner(verbosity=3, output="./reports/junit", outsuffix="")
 result = runner.run(suite)

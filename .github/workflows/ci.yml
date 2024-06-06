@@ -9,6 +9,11 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
 
@@ -34,3 +39,80 @@ jobs:
     - name: Test with unittest
       run: |
         make test
+    - name: make github page
+      run: |
+        make pages
+    - name: Compress badges
+      uses: a7ul/tar-action@v1.1.0
+      with:
+        cwd: ${{ github.workspace }}
+        command: c
+        outPath: badges-${{ matrix.python-version }}.tar.gz
+        files: |
+          coverage-badge.svg
+          flake8-badge.svg
+          tests-badge.svg
+    - name: upload badges artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: badges-${{ matrix.python-version }}
+        path: badges-${{ matrix.python-version }}.tar.gz
+    - name: upload static html
+      uses: actions/upload-artifact@v4
+      if: matrix.python-version == 3.12
+      with:
+        name: index
+        path: index.html
+
+  deploy:
+    needs: build
+    environment: github-pages
+    runs-on: ubuntu-latest
+    steps:
+    - name: download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: badges-3.10
+    - name: download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: badges-3.11
+    - name: download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: badges-3.12
+    - name: download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: index
+    - name: prepare publish folder
+      run: |
+        mkdir -p _site
+        mkdir -p _site/badges-3.10
+        mkdir -p _site/badges-3.11
+        mkdir -p _site/badges-3.12
+        cp index.html _site
+    - name: Extract files
+      uses: a7ul/tar-action@v1.1.0
+      with:
+        command: x
+        cwd: ./_site/badges-3.10
+        files: badges-3.10.tar.gz
+    - name: Extract files
+      uses: a7ul/tar-action@v1.1.0
+      with:
+        command: x
+        cwd: ./_site/badges-3.11
+        files: badges-3.11.tar.gz
+    - name: Extract files
+      uses: a7ul/tar-action@v1.1.0
+      with:
+        command: x
+        cwd: ./_site/badges-3.12
+        files: badges-3.12.tar.gz
+    - name: Upload artifact
+      id: upload-pages-artifact
+      uses: actions/upload-pages-artifact@v3.0.1
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
