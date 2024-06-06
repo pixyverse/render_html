@@ -64,6 +64,7 @@ jobs:
         path: index.html
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: download artifacts
