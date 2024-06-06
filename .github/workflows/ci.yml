@@ -77,21 +77,15 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: index
-    - name: prepare pages artifacts
-      uses: a7ul/tar-action@v1.1.0
-      with:
-        cwd: ${{ github.workspace }}
-        command: c
-        outPath: github-pages.tar.gz
-        files: |
-          index.html
-          badges-3.10.tar.gz
+    - name: prepare publish folder
+      run: |
+        mkdir -p _site
+        cp index.html _site
+        cp badges-3.10.tar.gz _site
     - name: Upload artifact
       id: upload-pages-artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: github-pages
-        path: github-pages.tar.gz
+      uses: actions/upload-pages-artifact@v4
+      path: _site
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
