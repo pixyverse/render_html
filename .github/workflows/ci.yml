@@ -81,7 +81,13 @@ jobs:
       run: |
         mkdir -p _site
         cp index.html _site
-        cp badges-3.10.tar.gz _site
+    - name: Extract files
+      uses: a7ul/tar-action@v1.1.0
+      id: extract
+      with:
+        command: x
+        cwd: ./_site
+        files: badges-3.10.tar.gz
     - name: Upload artifact
       id: upload-pages-artifact
       uses: actions/upload-pages-artifact@v3.0.1
