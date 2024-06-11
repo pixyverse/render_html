@@ -6,7 +6,7 @@ INSTALL_STAMP := .install.stamp
 POETRY_STAMP := .poetry.stamp
 POETRY = $(shell command -v poetry 2> /dev/null)
 JUNIT_OUT = $(shell find ./junit -type f -name '*.xml')
-GITHUB_PAGE := index.html
+GITHUB_PAGE := _site/index.html
 
 
 all: venv lint pie test
