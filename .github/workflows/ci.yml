@@ -57,6 +57,12 @@ jobs:
       with:
         name: badges-${{ matrix.python-version }}
         path: badges-${{ matrix.python-version }}.tar.gz
+    - name: upload static html
+      uses: actions/upload-artifact@v4
+      if: matrix.python-version == 3.12
+      with:
+        name: index
+        path: _site/
 
   deploy:
     needs: build
@@ -75,15 +81,16 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: badges-3.12
+    - name: download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: index
     - name: prepare publish folder
       run: |
         mkdir -p _site
         mkdir -p _site/badges-3.10
         mkdir -p _site/badges-3.11
         mkdir -p _site/badges-3.12
-    - name: build docs
-      run: |
-        make pages
     - name: Extract files
       uses: a7ul/tar-action@v1.1.0
       with:
