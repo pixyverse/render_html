@@ -91,6 +91,7 @@ jobs:
         mkdir -p _site/badges-3.10
         mkdir -p _site/badges-3.11
         mkdir -p _site/badges-3.12
+        cp -R index/* _site
     - name: Extract files
       uses: a7ul/tar-action@v1.1.0
       with:
