@@ -9,3 +9,4 @@ _version.py
 .vscode
 .TODOS
 **/*.stamp
+_site

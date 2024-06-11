@@ -1,0 +1,7 @@
+site_name: "Pixyverse - render_html"
+
+theme:
+  name: "readthedocs"
+
+plugins:
+- search

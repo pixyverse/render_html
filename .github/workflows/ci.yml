@@ -91,7 +91,9 @@ jobs:
         mkdir -p _site/badges-3.10
         mkdir -p _site/badges-3.11
         mkdir -p _site/badges-3.12
-        cp index.html _site
+    - name: build docs
+      run: |
+        make pages
     - name: Extract files
       uses: a7ul/tar-action@v1.1.0
       with:
