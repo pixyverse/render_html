@@ -237,3 +237,20 @@ print(comp)
             except Exception as ex:
                 self.fail(f"Unable to execute source {ex}")
         self.assertEqual(expected, output.getvalue())
+
+    def test_handle_empty_props(self):
+        input = """
+from src.pixyverse.render_html.render import create_element
+comp=<a href="#" rel={""} isTracker={False}>"Circus"</a>
+print(comp)
+        """
+        expected = """<a href="#">Circus</a>
+"""
+        source = transpile_source(input)
+        assert source
+        with stdoutIO() as output:
+            try:
+                exec(source, globals())
+            except Exception as ex:
+                self.fail(f"Unable to execute source {ex}")
+        self.assertEqual(expected, output.getvalue())

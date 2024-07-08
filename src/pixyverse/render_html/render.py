@@ -1,5 +1,7 @@
-from typing import Iterable, List
 import keyword
+from typing import Iterable, List
+
+SPACER = " "
 
 
 def map_prop_name(name: str):
@@ -26,6 +28,12 @@ def underscoreToHyphen(input: str) -> str:
     return input.replace("_", "-")
 
 
+def render_attribute(key, value) -> str:
+    if value in ["", False, None]:
+        return ""
+    return f"{SPACER}{underscoreToHyphen(map_prop_name(key))}={value}"
+
+
 def create_element(
     elem: str,
     props: dict[str, str] = {},
@@ -33,5 +41,5 @@ def create_element(
 ):
     render_children = "".join(flat_map(id, children))
     return f"<{elem}\
-{''.join(f' {underscoreToHyphen(map_prop_name(key))}={value}' for key, value in props.items())}>\
+{''.join(f'{render_attribute(key, value)}' for key, value in props.items())}>\
 {render_children}</{elem}>"
